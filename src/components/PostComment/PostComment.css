@@ -1,0 +1,26 @@
+.post_comment {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.post_comment_userImg {
+  width: 40px;
+  border-radius: 0 0 0 6px;
+}
+
+.post_comment_content {
+  display: flex;
+  flex-direction: column;
+  margin-left: 32px;
+}
+
+.post_comment_reactions {
+  display: flex;
+  justify-content: space-around;
+}
+
+.post_comment_contentUser {
+  display: flex;
+  flex-direction: column;
+}
