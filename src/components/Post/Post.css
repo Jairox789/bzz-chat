@@ -1,9 +1,10 @@
-.post_container {
+.post {
   display: flex;
   flex-direction: column;
   width: 60%;
   background: #fefeff;
   border-radius: 6px;
+  margin-bottom: 60px;
 }
 
 /* POST CONTAINER INFO */
@@ -55,17 +56,12 @@
   padding: 6px;
 }
 
-.post_reactions_like svg {
-  padding: 0 16px;
-}
-
 /* POST COMMENTS CONTAINER*/
 .post_comments_container {
   display: flex;
   flex-direction: column;
   margin-left: 30px;
   width: 70%;
-  background: #e7e7e7;
   margin-top: 24px;
-  border-radius: 6px;
+  margin-bottom: 30px;
 }

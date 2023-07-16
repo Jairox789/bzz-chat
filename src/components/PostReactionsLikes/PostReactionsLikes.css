@@ -1,0 +1,23 @@
+.post_reactions_like {
+    display: flex;
+}
+
+.post_reactions_like svg {
+    margin: 0 16px;
+    cursor: pointer;
+}
+
+.reaction_like_counter,
+.reaction_dislike_counter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.reaction_liked {
+    color: #276bff;
+}
+
+.reaction_disliked {
+    color: #ff2727;
+}

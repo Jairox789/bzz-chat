@@ -1,0 +1,9 @@
+.post_reactions_comments_counter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.post_reactions_btn {
+    cursor: pointer;
+}
