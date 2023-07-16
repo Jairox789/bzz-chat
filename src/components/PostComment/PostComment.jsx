@@ -1,13 +1,15 @@
+import { PostReactionsLikes } from "../PostReactionsLikes/PostReactionsLikes";
 import "./PostComment.css";
-import { BiLike, BiDislike } from "react-icons/bi";
 
 export function PostComment({
   photoUser,
-  userName,
+  nickName,
   commentText,
   dataPublish,
   totalLikes,
   totalDislikes,
+  initialValueLike,
+  initialValueDislike,
 }) {
   //LOGICA
   return (
@@ -16,13 +18,21 @@ export function PostComment({
 
       <div className="post_comment_content">
         <div className="post_comment_contentUser">
-          <span className="post_comment_userName">{userName}</span>
+          <div>
+            <strong className="post_comment_userName">{nickName}</strong>
+            <span className="post_comment_dataPublish">{dataPublish}</span>
+          </div>
+
           <span className="post_comment_userComment">{commentText}</span>
         </div>
 
         <div className="post_comment_reactions">
-          <BiLike />
-          <BiDislike />
+          <PostReactionsLikes
+            totalLikes={totalLikes}
+            totalDislikes={totalDislikes}
+            initialValueLike={initialValueLike}
+            initialValueDislike={initialValueDislike}
+          />
         </div>
       </div>
     </div>

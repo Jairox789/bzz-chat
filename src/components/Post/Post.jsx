@@ -1,50 +1,126 @@
+import "./Post.css";
 import { PostInfo } from "../PostInfo/PostInfo";
 import { PostImg } from "../PostImg/PostImg";
 import { PostComment } from "../PostComment/PostComment";
-import "./Post.css";
-import { BiLike, BiDislike, BiComment } from "react-icons/bi";
 import { PostText } from "../PostText/PostText";
+import { PostReactionsLikes } from "../PostReactionsLikes/PostReactionsLikes";
+import { PostReactionsComment } from "../PostReactionsComment/PostReactionsComment";
+import { PostWriteComment } from "../PostWriteComment/PostWriteComment";
+import { useState, useRef } from "react";
 
-export function Post(props) {
+export function Post({
+  nickName,
+  photoUser,
+  post,
+  initialValueLike,
+  initialValueDislike,
+  initialValueCommentsReactions,
+}) {
   //LOGICA
-  const { post } = props;
+  //REF
+  const inputRef = useRef(null);
+  //MANEJO DE FECHAS
+  const actualDate = new Date();
+
+  // Arreglo de nombres de meses
+  const months = [
+    "enero",
+    "febrero",
+    "marzo",
+    "abril",
+    "mayo",
+    "junio",
+    "julio",
+    "agosto",
+    "septiembre",
+    "octubre",
+    "noviembre",
+    "diciembre",
+  ];
+
+  const day = actualDate.getDate();
+  const month = months[actualDate.getMonth()];
+  const year = actualDate.getFullYear();
+
+  // FECHA FORMATEADA
+  const dataFormated = `${day} de ${month} ${year}`;
+
+  //MANEJO DE COMENTARIOS
+  const [comments, setComments] = useState(post.comments);
+
+  const handleCommentAdd = (newComment) => {
+    const newCommentObj = {
+      idComment: 2,
+      idFromPost: 2,
+      nickName: nickName,
+      photoUser: photoUser,
+      commentText: newComment,
+      dataPublish: dataFormated,
+      totalLikes: 0,
+      totalDislikes: 0,
+    };
+
+    setComments((prevComments) => [...prevComments, newCommentObj]);
+  };
+
   return (
-    <div className="post_container">
+    <div className="post">
       <div className="post_info">
         <PostInfo
-          userName={post.userName}
+          nickName={post.nickName}
           photoUser={post.photoUser}
           dataPublish={post.dataPublish}
         />
       </div>
 
       <div className="post_content">
-        <div className="post_content_imgContainer">
-          <PostImg imgSrc={post.postImg} />
-        </div>
+        {post.postImg.length > 0 && (
+          <div className="post_content_imgContainer">
+            {post.postImg.map((imgSrc, index) => (
+              <PostImg key={index} imgSrc={imgSrc} />
+            ))}
+          </div>
+        )}
         <PostText text={post.postText} />
       </div>
 
       <div className="post_reactions">
-        <div className="post_reactions_like">
-          <BiLike />
-          <BiDislike />
-        </div>
+        <PostReactionsLikes
+          initialValueLike={initialValueLike}
+          initialValueDislike={initialValueDislike}
+          totalLikes={post.totalLikes}
+          totalDislikes={post.totalDislikes}
+        />
 
-        <div className="post_reactions_comments">
-          <BiComment />
-        </div>
+        <PostReactionsComment
+          inputRef={inputRef}
+          totalComments={comments.length}
+        />
       </div>
+      <PostWriteComment
+        inputRef={inputRef}
+        handleCommentAdd={handleCommentAdd}
+        photoUser={photoUser}
+      />
 
       <div className="post_comments_container">
-        <PostComment
-          photoUser={post.comments[0].photoUser}
-          userName={post.comments[0].userName}
-          commentText={post.comments[0].commentText}
-          dataPublish={post.comments[0].dataPublish}
-          totalLikes={post.comments[0].totalLikes}
-          totalDislikes={post.comments[0].totalDislikes}
-        />
+        {comments.map((comment) => (
+          <PostComment
+            key={comment.idComment}
+            photoUser={comment.photoUser}
+            nickName={comment.nickName}
+            commentText={comment.commentText}
+            dataPublish={comment.dataPublish}
+            totalLikes={comment.totalLikes}
+            totalDislikes={comment.totalDislikes}
+            initialValueLike={initialValueCommentsReactions.commentLiked.includes(
+              comment.idComment
+            )}
+            initialValueDislike={initialValueCommentsReactions.commentDisliked.includes(
+              comment.idComment
+            )}
+          />
+        ))}
       </div>
     </div>
   );
