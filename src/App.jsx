@@ -1,14 +1,13 @@
 import "./App.css";
-import { Modal } from "./modal/Modal";
+import { Modal } from "./Modal/Modal";
 import { FeedPage } from "./pages/Feed/FeedPage";
 import { useState } from "react";
 
 function App() {
-  const [modalState, setModalState] = useState(true);
+  const [modalState, setModalState] = useState(false);
 
-  const handleModal = (placeInfo) => {
+  const handleModal = () => {
     setModalState(!modalState);
-    setInfoModal(placeInfo);
   };
 
   return (

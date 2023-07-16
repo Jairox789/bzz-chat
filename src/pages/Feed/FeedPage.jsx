@@ -1,5 +1,6 @@
 import "./FeedPage.css";
 import { Post } from "../../components/Post/Post";
+import { PostCreate } from "../../components/PostCreate/PostCreate";
 
 const userInfo = {
   idUser: 1,
@@ -72,26 +73,30 @@ const postExample = [
   },
 ];
 
-export function FeedPage(params) {
+export function FeedPage({ handleModal }) {
   //LOGICA
 
   return (
-    <div className="posts-container">
-      {postExample.map((post) => (
-        <Post
-          key={post.idPost}
-          nickName={userInfo.nickName}
-          photoUser={userInfo.photoUser}
-          post={post}
-          initialValueLike={userInfo.reactionPost.postLiked.includes(
-            post.idPost
-          )}
-          initialValueDislike={userInfo.reactionPost.postDisliked.includes(
-            post.idPost
-          )}
-          initialValueCommentsReactions={userInfo.reactionComments}
-        />
-      ))}
+    <div className="feed">
+      <PostCreate photoUser={userInfo.photoUser} handleModal={handleModal} />
+
+      <div className="posts-container">
+        {postExample.map((post) => (
+          <Post
+            key={post.idPost}
+            nickName={userInfo.nickName}
+            photoUser={userInfo.photoUser}
+            post={post}
+            initialValueLike={userInfo.reactionPost.postLiked.includes(
+              post.idPost
+            )}
+            initialValueDislike={userInfo.reactionPost.postDisliked.includes(
+              post.idPost
+            )}
+            initialValueCommentsReactions={userInfo.reactionComments}
+          />
+        ))}
+      </div>
     </div>
   );
 }
